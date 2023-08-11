@@ -3,8 +3,6 @@ import { BsChevronDown } from "react-icons/bs";
 import useGameQueryStore from "../store";
 
 const SortSelector = () => {
-  const { gameQuery, setSortOrder } = useGameQueryStore()
-
   const sortOrders = [
     { value: "", label: "Relevance" },
     { value: "-added", label: "Date added" },
@@ -14,7 +12,9 @@ const SortSelector = () => {
     { value: "-rating", label: "Average rating" },
   ];
 
-  const currentSortOrder = sortOrders.find(order => order.value === gameQuery.sortOrder);
+  const setSelectedSortOrder = useGameQueryStore(s => s.setSortOrder)
+  const selectedSortOrder = useGameQueryStore(s => s.gameQuery.sortOrder)
+  const currentSortOrder = sortOrders.find(order => order.value === selectedSortOrder);
 
   return (
     <Menu>
@@ -23,7 +23,7 @@ const SortSelector = () => {
       </MenuButton>
       <MenuList>
         {sortOrders.map((order) => (
-          <MenuItem onClick={() => setSortOrder(order.value)} key={order.value} value={order.value}>
+          <MenuItem onClick={() => setSelectedSortOrder(order.value)} key={order.value} value={order.value}>
             {order.label}
           </MenuItem>
         ))}
