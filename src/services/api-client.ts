@@ -15,6 +15,8 @@ class APIClient<T> {
   }
 
   getAll = (requestConfig?: AxiosRequestConfig) => axiosInstance.get<FetchResponse<T>>(this.endpoint, requestConfig).then((res) => res.data);
+  // TODO: Here you gonna add number to id
+  get = (id: string) => axiosInstance.get<T>(this.endpoint + "/" + id).then((res) => res.data);
 }
 
 export interface FetchResponse<T> {
